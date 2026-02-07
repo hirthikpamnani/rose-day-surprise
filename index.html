@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Rose Day 🌹</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:linear-gradient(135deg,#ffd6e7,#ffffff);
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+    }
+
+    .card{
+      background:white;
+      width:95%;
+      max-width:430px;
+      border-radius:30px;
+      padding:25px;
+      text-align:center;
+      box-shadow:0 15px 40px rgba(255,105,180,.4);
+      position:relative;
+      overflow:hidden;
+      animation:pop .8s ease;
+    }
+
+    @keyframes pop{
+      from{transform:scale(.7);opacity:0}
+      to{transform:scale(1);opacity:1}
+    }
+
+    h1{color:#ff4d88;margin-bottom:5px}
+
+    .name{
+      color:#ff2d73;
+      font-size:20px;
+      font-weight:600;
+      margin-bottom:8px;
+    }
+
+    .kitty{
+      width:120px;
+      margin:10px auto;
+      animation:bounce 2s infinite;
+    }
+
+    @keyframes bounce{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+    }
+
+    .typing{
+      font-size:14px;
+      color:#555;
+      min-height:45px;
+      padding:5px 10px;
+    }
+
+    button{
+      background:#ff4d88;
+      color:white;
+      border:none;
+      padding:12px 22px;
+      border-radius:20px;
+      cursor:pointer;
+      transition:.3s;
+      margin-top:10px;
+    }
+
+    button:hover{
+      transform:scale(1.08);
+      background:#ff2d73;
+    }
+
+    .hidden{display:none}
+
+    /* -------- love story text -------- */
+    .story{
+      margin-top:12px;
+      font-size:14px;
+      color:#666;
+      line-height:1.5;
+      animation:fade 1s ease;
+    }
+
+    /* -------- slider -------- */
+    .slider{margin-top:15px}
+
+    .slides img{
+      width:100%;
+      height:220px;
+      border-radius:20px;
+      object-fit:cover;
+      display:none;
+    }
+
+    .slides img.active{
+      display:block;
+      animation:fade .6s ease;
+    }
+
+    @keyframes fade{from{opacity:0}to{opacity:1}}
+
+    .footer{
+      margin-top:12px;
+      font-size:13px;
+      color:#ff4d88;
+      font-weight:600;
+    }
+
+    /* -------- heart rain -------- */
+    .rain-heart{
+      position:fixed;
+      top:-20px;
+      color:#ff4d88;
+      font-size:18px;
+      animation:rain 4s linear forwards;
+      pointer-events:none;
+    }
+
+    @keyframes rain{
+      to{transform:translateY(110vh);opacity:0}
+    }
+
+    /* -------- confetti -------- */
+    .confetti{
+      position:fixed;
+      width:8px;
+      height:8px;
+      top:-10px;
+      animation:confettiFall 3s linear forwards;
+    }
+
+    @keyframes confettiFall{
+      to{transform:translateY(110vh) rotate(360deg);opacity:0}
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>🌹 Happy Rose Day 🌹</h1>
+
+    <!-- Change her name here -->
+    <div class="name">For My Cutie Muskaan❤️</div>
+
+    <img class="kitty" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" />
+
+    <div id="typingText" class="typing"></div>
+
+    <button onclick="showSurprise()">Open My Heart 💌</button>
+
+    <div id="surprise" class="hidden">
+
+      <!-- mini love story -->
+      <div class="story">
+        From the first smile 😊<br>
+        To every laugh we shared ✨<br>
+        You became my favorite memory and my forever person ❤️
+      </div>
+
+      <img class="kitty" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" />
+
+      <div class="slider">
+        <div class="slides">
+          <!-- Replace with your photos -->
+          <img src="1.png" class="active">
+          <img src="2.png">
+          <img src="3.png">
+        </div>
+      </div>
+
+      <div class="footer">Forever yours 💖</div>
+    </div>
+  </div>
+
+  <script>
+    const surprise = document.getElementById('surprise');
+
+    function showSurprise(){
+      surprise.classList.remove('hidden');
+      startHeartRain();
+      startConfetti();
+    }
+
+    /* -------- typing effect -------- */
+    const msg = "You are my happiness, my peace, and my forever rose 🌹❤️";
+    const typingEl = document.getElementById('typingText');
+    let i=0;
+
+    function type(){
+      if(i<msg.length){
+        typingEl.innerHTML += msg[i];
+        i++;
+        setTimeout(type,40);
+      }
+    }
+    type();
+
+    /* -------- auto slider -------- */
+    const slides=document.querySelectorAll('.slides img');
+    let current=0;
+
+    function nextSlide(){
+      slides.forEach(s=>s.classList.remove('active'));
+      current=(current+1)%slides.length;
+      slides[current].classList.add('active');
+    }
+    setInterval(nextSlide,2500);
+
+    /* -------- heart rain effect -------- */
+    function startHeartRain(){
+      setInterval(()=>{
+        const heart=document.createElement('div');
+        heart.className='rain-heart';
+        heart.innerHTML='❤';
+        heart.style.left=Math.random()*100+'vw';
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+      },120);
+    }
+
+    /* -------- confetti effect -------- */
+    function startConfetti(){
+      for(let i=0;i<80;i++){
+        const c=document.createElement('div');
+        c.className='confetti';
+        c.style.left=Math.random()*100+'vw';
+        c.style.background=['#ff4d88','#ffc0cb','#ffffff','#ff99cc'][Math.floor(Math.random()*4)];
+        c.style.animationDelay=Math.random()*2+'s';
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3000);
+      }
+    }
+
+  </script>
+
+</body>
+</html>
